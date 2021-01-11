@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata: 
+  name: webservice-vs
+spec:
+  hosts:
+    - web-server
+  http:
+  - match:
+    - headers:
+        x-upgrade:
+          exact: "TRUE"
+    - uri:
+      prefix: /hello
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: webservice
+        subset: v1
