@@ -9,7 +9,7 @@ RUN chmod +x ./gradlew && ./gradlew bootJar
 FROM adoptopenjdk:13-jdk-hotspot
 COPY --from=builder build/libs/*.jar app.jar
 ARG version=NA
-ENV VERSION=$ver
+ENV VERSION=$version
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-v2
+  labels:
+    app: server
+    version: v2.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+        version: v2.0
+    spec:
+      containers:
+      - name: server
+        image: server:2.0
+        ports:
+        - containerPort: 8080

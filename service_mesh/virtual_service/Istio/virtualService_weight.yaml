@@ -4,7 +4,7 @@ metadata:
   name: webservice-vs
 spec:
   hosts:
-    - web-server
+    - webservice
   http:
   - route:
     - destination:
@@ -13,5 +13,5 @@ spec:
       weight: 50
     - destination:
         host: webservice
-        subset: v2.0
+        subset: v2
       weight: 50

@@ -1,11 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-server
+  name: web-server-v1
   labels:
     app: server
     version: v1.0
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: server
