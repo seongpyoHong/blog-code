@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: webservice-vs
+spec:
+  hosts:
+  - webservice
+  - webservice.greeting.com
+  gateways:
+  - web-gateway
+  http:
+  - route:
+    - destination:
+        host: webservice
+        subset: v1
+      weight: 80
+    - destination:
+        host: webservice
+        subset: v2
+      weight: 20
