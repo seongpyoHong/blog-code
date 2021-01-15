@@ -8,6 +8,7 @@ spec:
   - webservice.greeting.com
   gateways:
   - web-gateway
+  - mesh
   http:
   - route:
     - destination:
