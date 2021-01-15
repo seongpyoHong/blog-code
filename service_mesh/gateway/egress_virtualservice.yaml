@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: naver-egress-gateway
+spec:
+  hosts:
+  - www.naver.com
+  gateways:
+  - naver-egressgateway
+  - mesh
+  http:
+  - match:
+    - gateways:
+      - mesh
+      port: 80
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 80
+      weight: 100
+  - match:
+    - gateways:
+      - naver-egressgateway
+      port: 80
+    route:
+    - destination:
+        host: www.naver.com
+        port:
+          number: 80
+      weight: 100
