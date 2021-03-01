@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-rq
+  namespace: sphong
+spec:
+  hard:
+    request.cpu: "1"
+    request.memory: 2Gi
+    limits.cpu: "3"
+    limits.memory: 2Gi
+    persistentvolumeclaims: "5"
