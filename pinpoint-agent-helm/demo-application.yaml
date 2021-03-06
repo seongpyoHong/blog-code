@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deploy-1
+  labels:
+    app: test-deploy-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-deploy
+  template:
+    metadata:
+      labels:
+        app: test-deploy
+    spec:
+      containers:
+      - name: test
+        image: alpine
+        command:
+        - sh
+        - -c
+        - |
+          tail -f /dev/null
+        env:
+          - name: EXTERNAL_CONFIG_PATH
+            value: "/pinpoint/config/{{ .Values.agent.externalConfigName}}"
+        volumeMounts:
+        - name: agent-init
+          mountPath: /agent-init
+        - name: agent-external-config
+          mountPath: /pinpoint/config
+      volumes:
+      - name: agent-init
+        persistentVolumeClaim:
+            claimName: agent-{{ .Values.agent.version }}-pvc
+            readOnly: true
+      - name: agent-external-config
+        configMap:
+          name: external-config-{{ .Values.agent.externalConfigName }}
